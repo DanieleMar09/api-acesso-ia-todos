@@ -34,5 +34,7 @@ namespace api_acesso_ia.Repositories
             _context.Acessos.Add(acesso);
             return await _context.SaveChangesAsync() > 0;
         }
+
+      
     }
 }

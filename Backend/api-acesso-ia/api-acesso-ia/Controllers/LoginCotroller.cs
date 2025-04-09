@@ -1,5 +1,6 @@
 ﻿using api_acesso_ia.Models;
 using api_acesso_ia.Request;
+using api_acesso_ia.Services;
 using api_acesso_ia.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace api_acesso_ia.Controllers
 
 
         [HttpPost("autenticar")]
-        public async Task<ActionResult> Autenticar([FromBody] LoginRequest dados)
+        public async Task<IActionResult> Autenticar([FromBody] LoginRequest dados)
         {
             var usuario = await _loginService.AutenticarService(dados.Login, dados.Senha);
             if (usuario == null)
@@ -46,6 +47,30 @@ dados.Senha = _loginService.CriptografarSenha(dados.Senha);
                 return CreatedAtAction(nameof(Salvar), new { id = dados.Id }, dados);
             }
         }
+
+
+        [HttpGet("buscar-email")]
+        public async Task<IActionResult> BuscarPorEmail([FromQuery] string email)
+        {
+            var usuario = await _loginService.BuscarPorEmailService(email);
+            if (usuario == null)
+                return NotFound("Usuário não encontrado");
+
+            return Ok(usuario);
+        }
+
+        [HttpPut("resetar-senha/{idUsuario}")]
+        public async Task<IActionResult> ResetarSenha(int idUsuario, [FromBody] ResertarSenhaRequest dados)
+        {
+            var sucesso = await _loginService.ResetarSenhaService(idUsuario, dados.novaSenha);
+
+            if (!sucesso)
+                return NotFound("Usuário não encontrado");
+
+            return Ok("Senha redefinida com sucesso");
+        }
+
+
     }
 }
 

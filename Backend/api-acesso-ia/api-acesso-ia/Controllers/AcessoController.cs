@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using api_acesso_ia.Models;
 using api_acesso_ia.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace api_acesso_ia.Controllers
 {
@@ -8,9 +9,9 @@ namespace api_acesso_ia.Controllers
     [ApiController]
     public class AcessoController : ControllerBase
     {
-        private readonly IAcessoService _acessoService;
+        private readonly IAessoService _acessoService;
 
-        public AcessoController(IAcessoService acessoService)
+        public AcessoController(IAessoService acessoService)
         {
             _acessoService = acessoService;
         }
@@ -27,9 +28,12 @@ namespace api_acesso_ia.Controllers
         {
             var resultado = await _acessoService.Registrar(dados);
             if (!resultado)
-                return BadRequest("Erro ao registrar acesso");
+                return BadRequest(new { msg = "Erro ao registrar acesso" });
 
-            return Ok("Registro de acesso salvo com sucesso.");
+            return Ok(new { msg = "Registro de acesso salvo com sucesso." });
         }
+
+    
+
     }
 }
