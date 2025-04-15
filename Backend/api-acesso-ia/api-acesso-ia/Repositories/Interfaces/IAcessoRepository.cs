@@ -8,7 +8,8 @@ namespace api_acesso_ia.Repositories.Interfaces
     public interface IAcessoRepository
     {
         Task<IEnumerable<AcessoResponse>> ListarTodos();
-        Task<bool> Registrar(Acesso acesso);
+        Task<bool> Registrar(int IdUsuario, DateTime DataHoraAcesso);
+        Task<Usuario> BuscarPorId(int IdUsuario);
 
    
     }

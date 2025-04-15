@@ -34,7 +34,7 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<IAessoService, AcessoService>();
+builder.Services.AddScoped<IAcessoService, AcessoService>();
 builder.Services.AddScoped<IAcessoRepository, AcessoRepository>();
 
 // Add services to the container.

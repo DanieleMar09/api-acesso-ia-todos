@@ -14,5 +14,7 @@ namespace api_acesso_ia.Models
 
         [JsonIgnore]
         public virtual Usuario? Usuario { get; set; }
+
     }
 }
+

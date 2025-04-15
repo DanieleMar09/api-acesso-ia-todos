@@ -14,6 +14,11 @@ namespace api_acesso_ia.Repositories
             _context = context;
         }
 
+        public async Task<Usuario> BuscarPorId(int IdUsuario)
+        {
+            return await _context.Usuarios.FindAsync(IdUsuario);
+        }
+
         public async Task<IEnumerable<AcessoResponse>> ListarTodos()
         {
             return await _context.Acessos
@@ -29,9 +34,15 @@ namespace api_acesso_ia.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> Registrar(Acesso acesso)
+        public async Task<bool> Registrar(int IdUsuario, DateTime DataHoraAcesso)
         {
-            _context.Acessos.Add(acesso);
+            Acesso dados = new Acesso
+            {
+                IdUsuario = IdUsuario,
+                DataHoraAcesso = DataHoraAcesso
+            };
+
+            _context.Acessos.Add(dados);
             return await _context.SaveChangesAsync() > 0;
         }
 
